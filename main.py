@@ -2,6 +2,7 @@ import string
 
 import pandas as pd
 
+
 def get_prompt_parts(input_file='phrases.csv', delimiter='this address'):
     # Read lines from 'recognition.txt'
     with open(input_file, 'r') as infile:
@@ -23,8 +24,9 @@ def get_prompt_parts(input_file='phrases.csv', delimiter='this address'):
     # Sort, so that we can compare the longest variations first
     return sorted(prefixes, key=len, reverse=True), sorted(suffixes, key=len, reverse=True)
 
+
 def process_recognition_file(recog_file='df1_all_files.csv', recog_index=1,
-                             output_file='output.txt'):
+                             output_file='output_MSFT_IPA.txt'):
     prefixes, suffixes = get_prompt_parts()
 
     df = pd.read_csv(recog_file, sep='\\t')
@@ -51,4 +53,8 @@ def process_recognition_file(recog_file='df1_all_files.csv', recog_index=1,
 
 
 # Example usage
-process_recognition_file()
+# Using the same data frame, use the recog_index to tell it which column to use
+process_recognition_file(recog_file='df1_all_files.csv', recog_index=1, output_file='output_LHBphono_Serena.txt')
+process_recognition_file(recog_file='df1_all_files.csv', recog_index=2, output_file='output_MSFT_IPA.txt')
+process_recognition_file(recog_file='df1_all_files.csv', recog_index=3, output_file='output_ortho_Serena.txt')
+process_recognition_file(recog_file='df1_all_files.csv', recog_index=4, output_file='output_MSFT_name.txt')
